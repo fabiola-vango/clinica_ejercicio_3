@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica Gineco-Pediátrica</title>
     <style>
+        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -32,6 +33,23 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 15px;
+        }
+        .accordion {
+            cursor: pointer;
+            padding: 15px;
+            border: none;
+            text-align: left;
+            outline: none;
+            background-color: #f8e1e6;
+            color: #000;
+        }
+        .accordion.active, .accordion:hover {
+            background-color: #e9ccd3;
+        }
+        .panel {
+            display: none;
+            padding: 15px;
+            background-color: #fdfdfd;
         }
         form {
             display: flex;
@@ -66,6 +84,43 @@
     </header>
     <div class="container">
         <div class="card">
+            <h2>¿Quiénes somos?</h2>
+            <p>Clínica enfocada en salud ginecológica, obstétrica y pediátrica. Brindamos atención con calidez, ética profesional y trato humano.</p>
+        </div>
+        <div class="card">
+            <h2>Misión</h2>
+            <p>Brindar atención médica especializada, accesible y con enfoque integral a mujeres, gestantes e infancias.</p>
+        </div>
+        <div class="card">
+            <h2>Valores</h2>
+            <ul>
+                <li>Ética profesional</li>
+                <li>Empatía</li>
+                <li>Diversidad</li>
+                <li>Honestidad</li>
+                <li>Responsabilidad</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>Especialidades</h2>
+            <button class="accordion">👩‍⚕️ Ginecología</button>
+            <div class="panel">
+                <p>Salud reproductiva, planificación familiar, anticoncepción...</p>
+            </div>
+            <button class="accordion">🧐 Obstetricia</button>
+            <div class="panel">
+                <p>Control prenatal, ultrasonidos...</p>
+            </div>
+            <button class="accordion">👶 Pediatría</button>
+            <div class="panel">
+                <p>Control del desarrollo infantil, vacunas...</p>
+            </div>
+            <button class="accordion">🩺 Medicina General</button>
+            <div class="panel">
+                <p>Valoración inicial y seguimiento...</p>
+            </div>
+        </div>
+        <div class="card">
             <h2>Agendar una cita</h2>
             <form id="appointment-form">
                 <input type="text" name="Nombre completo" placeholder="Nombre completo" required>
@@ -85,12 +140,21 @@
         </div>
     </div>
     <script>
+        const accordionItems = document.querySelectorAll('.accordion');
+        accordionItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const panel = item.nextElementSibling;
+                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
         const form = document.getElementById('appointment-form');
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Detiene el envío tradicional del formulario.
-            const formData = new FormData(form); // Captura los datos del formulario.
+            e.preventDefault();
+            const formData = new FormData(form);
             try {
-                const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_URL/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbx1kGe6VdGCO1WcSc7oDYXUKvjPOXPVNrwbJPWe9Ry14QKa30tXCclJz0jGOtisGmLshQ/exec', {
                     method: 'POST',
                     body: formData
                 });
